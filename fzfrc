@@ -1,0 +1,18 @@
+function hist(){
+    local command=$(history | sort -n --reverse | fzf --no-sort | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}')
+    if [ "$1" == "e" ]; then
+        echo $command
+    else
+        eval $command
+    fi
+}
+
+# show current folder directories in fzf, select one, move to that directory and execute again the same comand. stop on ctrlc 
+function cdf(){
+    local dir=$(ls -lah | grep '^d' | fzf | awk '{print "./"$NF}' )
+    if [ -z "$dir" ]; then
+        return
+    fi
+    cd $dir
+    cdf
+}
