@@ -16,3 +16,5 @@ function cdf(){
     cd $dir
     cdf
 }
+
+source ~/fzfalias/key-bindings.bash
